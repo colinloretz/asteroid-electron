@@ -57,8 +57,8 @@ function onFrame(event) {
   if(celestialBodies === null) {
     drawCelestialBodies();
   } else {
-    moveCelestialBodies();
 
+    moveCelestialBodies();
     if(celestialBodies.hasOwnProperty('asteroid')) {
       console.log(celestialBodies['asteroid']);
       $('.asteroid_position').html(celestialBodies['asteroid'].position.x.toFixed(2) + ', ' + celestialBodies['asteroid'].position.y.toFixed(2));
@@ -107,10 +107,8 @@ function mapDimensionToCanvas(r) {
 function drawPrediction(){
   $.get('http://localhost:8000/predict', function(data) {
     var rock = data["big fucking rock"];
-    console.log(data["big fucking rock"]);
-  //  predictedPath.removeSegments();
+    predictedPath.removeSegments();
     for(var i = 0; i < rock.length; i++) {
-      console.log(rock[i][0], rock[i][1]);
       predictedPath.add(mapPositionToCanvas(rock[i][0], rock[i][1]));
     }
   });
@@ -152,7 +150,7 @@ function drawCelestialBodies(bodies) {
 
       bodies.forEach(function(body) {
         celestialBodies[body.name] = new Shape.Circle([0,0], mapDimensionToCanvas(body["R"]));
-        celestialBodies[body.name].fillColor = celestialColors[body.name]
+        celestialBodies[body.name].fillColor = celestialColors[body.name] ? celestialColors[body.name] : 'white';
       });
 
     }
