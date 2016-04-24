@@ -13,6 +13,8 @@ Requires Node.js. Clone this repository and then run:
 npm install && npm start
 ```
 
+:warning: This client will not work without the python server component, which is available below. We are working on making this more portable than it is currently.
+
 ![asteroid client](https://media.giphy.com/media/12aMT6qXD8q4mc/giphy.gif)
 
 
