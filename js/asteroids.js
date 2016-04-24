@@ -52,8 +52,6 @@ var predictedPath = new Path({
   dashArray: [10, 12]
 });
 
-predictedPath.sendToFront();
-
 /* Event listeners */
 function onFrame(event) {
   if(celestialBodies === null) {
@@ -110,8 +108,9 @@ function drawPrediction(){
   $.get('http://localhost:8000/predict', function(data) {
     var rock = data["big fucking rock"];
     console.log(data["big fucking rock"]);
-    predictedPath.removeSegments();
+  //  predictedPath.removeSegments();
     for(var i = 0; i < rock.length; i++) {
+      console.log(rock[i][0], rock[i][1]);
       predictedPath.add(mapPositionToCanvas(rock[i][0], rock[i][1]));
     }
   });
