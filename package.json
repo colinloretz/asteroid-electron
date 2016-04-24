@@ -1,0 +1,13 @@
+{
+  "name": "asteroids",
+  "version": "1.0.0",
+  "description": "Asteroid Mining Game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "author": "Colin Loretz",
+  "devDependencies": {
+    "electron-prebuilt": "^0.37.0"
+  }
+}

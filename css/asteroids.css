@@ -1,0 +1,137 @@
+* {
+  margin:0;
+  padding:0;
+  cursor: pointer;
+  font-family: Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+}
+
+html, body {
+  width:100%;
+  height:100%;
+}
+
+canvas {
+  display:block;
+  width: 600px;
+  height: 600px;
+  background-color: #282C34;
+  position: fixed;
+}
+
+
+#messagePrompt {
+  display: none;
+  width: 100%;
+  color: #E5C07B;
+  position: absolute;
+  top: 20%;
+  transform: translateY(-10);
+  z-index: 9999;
+  text-align: center;
+}
+
+#panel {
+  cursor: pointer;
+  background-color: #21252B;
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  padding: 14px 15px 10px;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  color: #9DA5B4;
+}
+
+.stats {
+  list-style-type: none;
+  font-size: 14px;
+}
+
+.stats li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.stat {
+  color: #606671;
+}
+
+/* Styling for directional controls */
+
+.north {
+  cursor: n-resize;
+}
+
+.northeast {
+  cursor: n-resize;
+}
+
+.east {
+  cursor: e-resize;
+}
+
+.southeast {
+  cursor: se-resize;
+}
+
+.south {
+  cursor: s-resize;
+}
+
+.southwest {
+  cursor: sw-resize;
+}
+
+.west {
+  cursor: w-resize;
+}
+
+.northwest {
+  cursor: nw-resize;
+}
+
+#levelScreen {
+  text-align: center;
+  color: #ABB2BF;
+  width: 75%;
+  background-color: rgba(0,0,0,.9);;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+#levelScreen h2 {
+  text-transform: uppercase;
+  color: #1FB180;
+  margin: 10px;
+}
+
+#levelScreen h4 {
+  color: #E2C08D;
+  margin: 10px;
+}
+
+#levelScreen p {
+  font-size: 12px;
+  padding: 10px;
+  margin: 20px;
+}
+
+#levelScreen .start {
+  background-color: #1FB281;
+  color: #282C34;
+  padding: 15px ;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  display: inline-block;
+}
+
+#levelScreen .start:hover {
+  background-color: #E2C08D;
+}

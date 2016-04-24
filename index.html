@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Asteroid Mining</title>
+    <link rel="stylesheet" href="css/asteroids.css" media="screen" title="no title" charset="utf-8">
+    <script src="bower_components/paper/dist/paper-full.min.js" charset="utf-8"></script>
+    <script src="js/asteroids.js" type="text/paperscript" canvas="asteroidMining"></script>
+  </head>
+  <body>
+    <div class = "container">
+      <div id = "messagePrompt">fire ze missiles!</div>
+      <div id = "levelScreen">
+        <h2>Grab that rock!</h2>
+        <h4>Level 1</h4>
+        <p>Click on the screen to fire your thrusters.</p>
+        <span class = "start">Start!</span>
+      </div>
+      <div id = "panel">
+        <ul class = "stats">
+          <li>Asteroid Mission</li>
+          <li><span class = "stat">velocity: </span> 400 m/s</li>
+          <li><span class = "stat">position: </span><span class = "asteroid_position"></span></li>
+        </ul>
+      </div>
+      <canvas id="asteroidMining" resize></canvas>
+    </div>
+  </body>
+</html>
