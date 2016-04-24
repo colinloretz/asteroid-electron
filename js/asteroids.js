@@ -23,7 +23,7 @@ var celestialColors = {
 }
 
 // Let's make the universe
-makeTheUniverse();
+//makeTheUniverse();
 
 $(document).ready(function(){
   $('#levelScreen .start').on('click', function(){
@@ -31,6 +31,13 @@ $(document).ready(function(){
     inPlay = true;
     startSimulation();
   });
+});
+
+var predictedPath = new Path({
+  strokeColor: '#6B717D',
+  opacity: 0.5,
+  strokeCap: 'round',
+  dashArray: [10, 12]
 });
 
 // Start predicting the orbit
@@ -45,12 +52,6 @@ var xMin = -1 * xMax;
 var yMax = 5*earthToMoon;;
 var yMin = -1 * yMax;
 
-var predictedPath = new Path({
-  strokeColor: '#6B717D',
-  opacity: 0.5,
-  strokeCap: 'round',
-  dashArray: [10, 12]
-});
 
 /* Event listeners */
 function onFrame(event) {
@@ -59,9 +60,11 @@ function onFrame(event) {
   } else {
 
     moveCelestialBodies();
-    if(celestialBodies.hasOwnProperty('asteroid')) {
-      console.log(celestialBodies['asteroid']);
-      $('.asteroid_position').html(celestialBodies['asteroid'].position.x.toFixed(2) + ', ' + celestialBodies['asteroid'].position.y.toFixed(2));
+    if(celestialBodies.hasOwnProperty('big fucking rock')) {
+      $('.asteroid_position').html(celestialBodies['big fucking rock']['geometry'].position.x.toFixed(2) + ', ' + celestialBodies['big fucking rock']['geometry'].position.y.toFixed(2));
+
+      var speed = Math.sqrt(Math.pow(celestialBodies['big fucking rock']['velocity'][0], 2) + Math.pow(celestialBodies['big fucking rock']['velocity'][1], 2));
+      $('.asteroid_speed').html(speed.toFixed(2));
     }
 
   }
@@ -90,7 +93,9 @@ function moveCelestialBodies(){
 
       bodies.forEach(function(body) {
         var bodyCoords = mapPositionToCanvas(body.coords);
-        celestialBodies[body.name].position = bodyCoords;
+        celestialBodies[body.name]['geometry'].position = bodyCoords;
+        celestialBodies[body.name]['velocity'] = body["velocity"];
+
       });
     }
   });
@@ -109,7 +114,7 @@ function drawPrediction(){
     var rock = data["big fucking rock"];
     predictedPath.removeSegments();
     for(var i = 0; i < rock.length; i++) {
-      predictedPath.add(mapPositionToCanvas(rock[i][0], rock[i][1]));
+      predictedPath.add(mapPositionToCanvas(rock[i]));
     }
   });
 }
@@ -129,7 +134,7 @@ function displayMessage(message) {
 }
 
 function calculateAngleOfBooster(click){
-  var theta = Math.atan2((celestialBodies['big fucking rock'].position.y - click.y), (celestialBodies['big fucking rock'].position.x - click.x));
+  var theta = Math.atan2((celestialBodies['big fucking rock']['geometry'].position.y - click.y), (celestialBodies['big fucking rock']['geometry'].position.x - click.x));
   return theta;
 }
 
@@ -149,19 +154,24 @@ function drawCelestialBodies(bodies) {
       celestialBodies = {};
 
       bodies.forEach(function(body) {
-        celestialBodies[body.name] = new Shape.Circle([0,0], mapDimensionToCanvas(body["R"]));
-        celestialBodies[body.name].fillColor = celestialColors[body.name] ? celestialColors[body.name] : 'white';
+        if(!celestialBodies[body.name]) {
+          celestialBodies[body.name] = {};
+        }
+        celestialBodies[body.name]['geometry'] = new Shape.Circle([0,0], mapDimensionToCanvas(body["R"]));
+        celestialBodies[body.name]['geometry'].fillColor = celestialColors[body.name] ? celestialColors[body.name] : 'white';
+        celestialBodies[body.name]['velocity'] = body["velocity"];
       });
 
     }
   });
 }
 
-function makeTheUniverse() {
+function makeTheUniverse(callback) {
   var spaceBackground = new Path.Rectangle({
     point: [0, 0],
     size: [iMax,jMax],
     fillColor: '#282C34'
   });
   spaceBackground.sendToBack();
+  callback();
 }
