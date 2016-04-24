@@ -156,7 +156,7 @@ function drawCelestialBodies(bodies) {
         if(!celestialBodies[body.name]) {
           celestialBodies[body.name] = {};
         }
-        celestialBodies[body.name]['geometry'] = new Shape.Circle([0,0], mapDimensionToCanvas(body["R"]));
+        celestialBodies[body.name]['geometry'] = new Shape.Circle([0,0], body.name === "big fucking rock" ?  1.5 : mapDimensionToCanvas(body["R"]));
         celestialBodies[body.name]['geometry'].fillColor = celestialColors[body.name] ? celestialColors[body.name] : 'white';
         celestialBodies[body.name]['velocity'] = body["velocity"];
       });
