@@ -2,7 +2,7 @@
     [ ] detect if asteroid goes outside of the field
     [ ] start screen
     [ ] difficulty select?
-    [ ] price of asteroids & types of asteroids
+    [ ] price of big fucking rock & types of big fucking rock
     [ ] alert messages
     [ ] start game button
     [ ] restart the game
@@ -18,8 +18,8 @@ var inPlay = false;
 
 var celestialColors = {
   'earth' : '#167EDF',
-  'moon' : '#5C6370',
-  'asteroids' : '#ADEBF6'
+  'moon' : '#9DA5B4',
+  'big fucking rock' : '#E5C07B'
 }
 
 // Let's make the universe
@@ -47,9 +47,9 @@ setInterval(function(){ drawPrediction() }, 4000);
 var earthToMoon = 370.3*Math.pow(10, 6);
 var iMax = 600;
 var jMax = 600;
-var xMax = Math.pow(10,12);
+var xMax = 3*earthToMoon;
 var xMin = -1 * xMax;
-var yMax = Math.pow(10,12);
+var yMax = 3*earthToMoon;
 var yMin = -1 * yMax;
 
 
@@ -60,10 +60,10 @@ function onFrame(event) {
   } else {
 
     moveCelestialBodies();
-    if(celestialBodies.hasOwnProperty('asteroids')) {
-      $('.asteroid_position').html(celestialBodies['asteroids']['geometry'].position.x.toFixed(2) + ', ' + celestialBodies['asteroids']['geometry'].position.y.toFixed(2));
+    if(celestialBodies.hasOwnProperty('big fucking rock')) {
+      $('.asteroid_position').html(celestialBodies['big fucking rock']['geometry'].position.x.toFixed(2) + ', ' + celestialBodies['big fucking rock']['geometry'].position.y.toFixed(2));
 
-      var speed = Math.sqrt(Math.pow(celestialBodies['asteroids']['velocity'][0], 2) + Math.pow(celestialBodies['asteroids']['velocity'][1], 2));
+      var speed = Math.sqrt(Math.pow(celestialBodies['big fucking rock']['velocity'][0], 2) + Math.pow(celestialBodies['big fucking rock']['velocity'][1], 2));
       $('.asteroid_speed').html(speed.toFixed(2));
     }
 
@@ -95,7 +95,6 @@ function moveCelestialBodies(){
         var bodyCoords = mapPositionToCanvas(body.coords);
         celestialBodies[body.name]['geometry'].position = bodyCoords;
         celestialBodies[body.name]['velocity'] = body["velocity"];
-
       });
     }
   });
@@ -111,7 +110,7 @@ function mapDimensionToCanvas(r) {
 
 function drawPrediction(){
   $.get('http://localhost:8000/predict', function(data) {
-    var rock = data["asteroids"];
+    var rock = data["big fucking rock"];
     predictedPath.removeSegments();
     for(var i = 0; i < rock.length; i++) {
       predictedPath.add(mapPositionToCanvas(rock[i]));
@@ -134,7 +133,7 @@ function displayMessage(message) {
 }
 
 function calculateAngleOfBooster(click){
-  var theta = Math.atan2((celestialBodies['asteroids']['geometry'].position.y - click.y), (celestialBodies['asteroids']['geometry'].position.x - click.x));
+  var theta = Math.atan2((celestialBodies['big fucking rock']['geometry'].position.y - click.y), (celestialBodies['big fucking rock']['geometry'].position.x - click.x));
   return theta;
 }
 
