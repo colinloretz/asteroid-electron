@@ -20,6 +20,6 @@ npm install && npm start
 
 ## Server Component
 
-The server side component is available at [https://bitbucket.org/bdhammel/asteroid_mining](https://bitbucket.org/bdhammel/asteroid_mining).
+The server side component is available at [https://github.com/bdhammel/asteroid-flask](https://github.com/bdhammel/asteroid-flask).
 
 It requires python and Redis to be installed.
