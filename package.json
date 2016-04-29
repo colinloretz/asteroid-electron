@@ -9,5 +9,14 @@
   "author": "Colin Loretz",
   "devDependencies": {
     "electron-prebuilt": "^0.37.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colinloretz/asteroid-electron.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colinloretz/asteroid-electron/issues"
+  },
+  "homepage": "https://github.com/colinloretz/asteroid-electron#readme"
 }

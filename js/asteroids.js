@@ -2,7 +2,7 @@
     [ ] detect if asteroid goes outside of the field
     [ ] start screen
     [ ] difficulty select?
-    [ ] price of big fucking rock & types of big fucking rock
+    [ ] price of asteroid & types of asteroid
     [ ] alert messages
     [ ] start game button
     [ ] restart the game
@@ -19,7 +19,7 @@ var inPlay = false;
 var celestialColors = {
   'earth' : '#167EDF',
   'moon' : '#9DA5B4',
-  'big fucking rock' : '#E5C07B'
+  'asteroid' : '#E5C07B'
 }
 
 // Let's make the universe
@@ -47,9 +47,9 @@ setInterval(function(){ drawPrediction() }, 4000);
 var earthToMoon = 370.3*Math.pow(10, 6);
 var iMax = 600;
 var jMax = 600;
-var xMax = 3*earthToMoon;
+var xMax = 5*earthToMoon;
 var xMin = -1 * xMax;
-var yMax = 3*earthToMoon;
+var yMax = 5*earthToMoon;
 var yMin = -1 * yMax;
 
 
@@ -60,10 +60,10 @@ function onFrame(event) {
   } else {
 
     moveCelestialBodies();
-    if(celestialBodies.hasOwnProperty('big fucking rock')) {
-      $('.asteroid_position').html(celestialBodies['big fucking rock']['geometry'].position.x.toFixed(2) + ', ' + celestialBodies['big fucking rock']['geometry'].position.y.toFixed(2));
+    if(celestialBodies.hasOwnProperty('asteroid')) {
+      $('.asteroid_position').html(celestialBodies['asteroid']['geometry'].position.x.toFixed(2) + ', ' + celestialBodies['asteroid']['geometry'].position.y.toFixed(2));
 
-      var speed = Math.sqrt(Math.pow(celestialBodies['big fucking rock']['velocity'][0], 2) + Math.pow(celestialBodies['big fucking rock']['velocity'][1], 2));
+      var speed = Math.sqrt(Math.pow(celestialBodies['asteroid']['velocity'][0], 2) + Math.pow(celestialBodies['asteroid']['velocity'][1], 2));
       $('.asteroid_speed').html(speed.toFixed(2));
     }
 
@@ -86,7 +86,7 @@ function onMouseDown(event) {
 }
 
 function moveCelestialBodies(){
-  $.get('http://localhost:8000/cache', function(data) {
+  $.get('http://localhost:5000/cache', function(data) {
     if(data.hasOwnProperty('data')) {
 
       var bodies = data.data;
@@ -109,8 +109,8 @@ function mapDimensionToCanvas(r) {
 };
 
 function drawPrediction(){
-  $.get('http://localhost:8000/predict', function(data) {
-    var rock = data["big fucking rock"];
+  $.get('http://localhost:5000/predict', function(data) {
+    var rock = data["asteroid"];
     predictedPath.removeSegments();
     for(var i = 0; i < rock.length; i++) {
       predictedPath.add(mapPositionToCanvas(rock[i]));
@@ -123,7 +123,7 @@ function fireThruster(event) {
   sound.fade(2,0, 1000);
   var theta = calculateAngleOfBooster(event.point);
   displayMessage('Firing thrusters!')
-  $.get('http://localhost:8000/thruster?theta=' + theta);
+  $.get('http://localhost:5000/thruster?theta=' + theta);
 }
 
 function displayMessage(message) {
@@ -133,21 +133,21 @@ function displayMessage(message) {
 }
 
 function calculateAngleOfBooster(click){
-  var theta = Math.atan2((celestialBodies['big fucking rock']['geometry'].position.y - click.y), (celestialBodies['big fucking rock']['geometry'].position.x - click.x));
+  var theta = Math.atan2((celestialBodies['asteroid']['geometry'].position.y - click.y), (celestialBodies['asteroid']['geometry'].position.x - click.x));
   return theta;
 }
 
 function startSimulation() {
-  $.get('http://localhost:8000/start');
+  $.get('http://localhost:5000/start');
 }
 
 function stopSimulation() {
-  $.get('http://localhost:8000/stop');
+  $.get('http://localhost:5000/stop');
 }
 
 function drawCelestialBodies(bodies) {
 
-  $.get('http://localhost:8000/cache', function(data) {
+  $.get('http://localhost:5000/cache', function(data) {
     if(data.hasOwnProperty('data')) {
       var bodies = data.data;
       celestialBodies = {};
@@ -156,7 +156,7 @@ function drawCelestialBodies(bodies) {
         if(!celestialBodies[body.name]) {
           celestialBodies[body.name] = {};
         }
-        celestialBodies[body.name]['geometry'] = new Shape.Circle([0,0], body.name === "big fucking rock" ?  1.5 : mapDimensionToCanvas(body["R"]));
+        celestialBodies[body.name]['geometry'] = new Shape.Circle([0,0], body.name === "asteroid" ?  1.5 : mapDimensionToCanvas(body["R"]));
         celestialBodies[body.name]['geometry'].fillColor = celestialColors[body.name] ? celestialColors[body.name] : 'white';
         celestialBodies[body.name]['velocity'] = body["velocity"];
       });
